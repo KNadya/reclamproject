@@ -27,4 +27,8 @@ export class ApiService {
     return this.http.post('http://localhost:3000/reclam/' + this.GetUserId(), reclam);
   }
 
+  Upload(uploadFileForm) {
+    return this.http.post('http://localhost:3000/upload/' + this.GetUserId(), uploadFileForm);
+  }
+
 }

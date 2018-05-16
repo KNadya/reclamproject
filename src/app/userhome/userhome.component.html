@@ -14,9 +14,13 @@ Comment:
 </mat-form-field>
 <br>
 
+<input type="file" (change)="onFileSelected($event)">
+<button type="button" (click)="onUpload()"> upload file!! </button>
+<br>
+
+
 <button mat-button (click)="Btnuserhome()">Send reclamation</button>
 
+<!--<button mat-button (click)="onFileSelected()"> upload file </button>-->
 
-<!--<div class="col-12 col-md-12 mb-2 mb-md-0">
-    <button mat-button (click)="addBtn()"> register </button>
-  </div>-->
+

@@ -2,8 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require ('mongodb').MongoClient;
 var ObjectID = require ('mongodb').ObjectID;
-var jsonwebtoken = require ('jsonwebtoken')
-//import {sign} from 'jsonwebtoken';
+var jsonwebtoken = require ('jsonwebtoken');
+var formidable = require('formidable');
+var fs = require('fs');
+var path = require('path');
+var Binary = require('mongodb').Binary;
 const bodyparser = require('body-parser');
 var app = express();
 
@@ -73,6 +76,31 @@ db.collection('Users').findOne({ mail: req.body.mail
         // });
       });
     });
+  });
+
+  app.post('/upload/:id', (req, res) => {
+    let id= req.params.id
+
+    // Stocker le fichier dans la base de données
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      var oldpath = files.image.path;
+
+      var data = fs.readFileSync(oldpath);
+      var images = {};
+      images.file_data= Binary(data);
+
+      connection(db => {
+        db.collection('Users').updateOne({_id: ObjectID(id)}, {$addToSet: images}, (err, result) => {
+          if (err) {
+            console.log (err);
+          }
+
+          res.send({message: result} );
+        });
+      });
+    });
+
   });
 
 

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -13,6 +14,7 @@ import { RecguardGuard } from './recguard.guard';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UserhomeComponent } from './userhome/userhome.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,13 @@ import { UserhomeComponent } from './userhome/userhome.component';
     AppRoutingModule,
     HttpModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
+
   ],
   providers: [AppRoutingModule, RecguardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
