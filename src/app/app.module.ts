@@ -15,6 +15,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ListuserreclamComponent } from './listuserreclam/listuserreclam.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    UserhomeComponent
+    UserhomeComponent,
+    ListuserreclamComponent
   ],
   imports: [
     BrowserModule,
