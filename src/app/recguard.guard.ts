@@ -13,11 +13,12 @@ export class RecguardGuard implements CanActivate {
     if (localStorage.getItem('tok')) {
       return true;
     }
-    this.newMethod();
+
+    this.goToLogin();
     return false;
   }
 
-  private newMethod() {
+  private goToLogin() {
     this.router.navigateByUrl('login');
   }
 }

@@ -15,8 +15,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListuserreclamComponent } from './listuserreclam/listuserreclam.component';
-
+import { FileSizeFilterPipe } from './pipes/file-size-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ListuserreclamComponent } from './listuserreclam/listuserreclam.compone
     RegisterComponent,
     HomeComponent,
     UserhomeComponent,
-    ListuserreclamComponent
+    ListuserreclamComponent,
+    FileSizeFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { ListuserreclamComponent } from './listuserreclam/listuserreclam.compone
     HttpModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule.forRoot()
 
   ],
   providers: [AppRoutingModule, RecguardGuard],

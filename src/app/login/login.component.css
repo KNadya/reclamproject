@@ -1,0 +1,29 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  background-image: url('/assets/img/bg-masthead.jpg');
+  height:100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-container > * {
+  width: 50%;
+}
+
+.example-container > button {
+  width: 10%;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}

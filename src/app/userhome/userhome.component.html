@@ -1,26 +1,60 @@
-Location:
-<mat-form-field class="example-full-width">
-  <textarea matInput placeholder="Location" [(ngModel)]="location"></textarea>
-</mat-form-field>
-<br>
-Date :
-<mat-form-field class="example-full-width">
-  <textarea matInput placeholder="Insert date" [(ngModel)]="date"></textarea>
-</mat-form-field>
-<br>
-Comment:
-<mat-form-field class="example-full-width">
-  <textarea matInput placeholder="Leave a comment" [(ngModel)]="description"></textarea>
-</mat-form-field>
-<br>
+<form #reclamationForm="ngForm" (ngSubmit)="sendReclamation(reclamationForm)">
 
-<input type="file" (change)="onFileSelected($event)">
-<button type="button" (click)="onUpload()"> upload file!! </button>
-<br>
+<div class="example-container">
 
+  <div class="jumbotron">
+    <h1>Création d'une réclamation</h1>
+    <p>Veuillez saisir les détails de votre réclamation</p>
+  </div>
 
-<button mat-button (click)="Btnuserhome()">Send reclamation</button>
+  <mat-form-field>
+    <input matInput placeholder="Adresse" [(ngModel)]="location" name="location">
+  </mat-form-field>
 
-<!--<button mat-button (click)="onFileSelected()"> upload file </button>-->
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Date" [(ngModel)]="date" name="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
+  <mat-form-field>
+    <textarea matInput placeholder="Description de la réclamation" [(ngModel)]="description" name="description"></textarea>
+  </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <!--Liste des pièces jointes-->
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Nom du fichier</th>
+      <th>Taille</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let file of selectedFiles; index as i">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{ file.name }}</td>
+      <td>{{ file.size | fileSizeFilter:2}}</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <mat-divider style="margin: 10px"></mat-divider>
+
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="customFile" (change)="onFileSelected($event)">
+    <label class="custom-file-label" for="customFile">Sélectionner un fichier</label>
+  </div>
+
+  <mat-divider style="margin: 20px"></mat-divider>
+
+  <button mat-raised-button  type="submit" color="primary">Envoyer la réclamation</button>
+
+</div>
+
+</form>
 

@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { RecguardGuard } from './recguard.guard';
 import { UserhomeComponent } from './userhome/userhome.component';
+import { ListuserreclamComponent } from './listuserreclam/listuserreclam.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'list',
+    component: ListuserreclamComponent
   },
   {
     path: '**',

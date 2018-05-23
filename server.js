@@ -37,7 +37,8 @@ app.post('/login', (req, res) => {
     }, (err, result) => {
       if (result) {
         if (result.password == req.body.password) {
-          let token = jsonwebtoken.sign(result, "mysecretcode")
+          let userDetails = {_id: result._id}
+          let token = jsonwebtoken.sign(userDetails, "mysecretcode")
           res.send({
             message: "ok",
             token: token
@@ -62,57 +63,43 @@ app.post('/register', (req, res) => {
     db.collection('Users').insert(req.body, (err, result) => {
       if (err) {
         res.send().err
+      } else {
+        res.send({
+                message: "ok"
+              });
       }
-      res.send({
-        message: "ok"
-      });
+
     });
   });
 });
 
 app.post('/reclam/:id', (req, res) => {
-  let id = req.params.id
-  console.log(id);
-  console.log(req.body);
 
-  connection(db => {
-    db.collection('Users').updateOne({
-      _id: ObjectID(id)
-    }, {
-      $addToSet: {
-        reclamation: req.body
-      }
-    }, (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      res.send({
-        message: result
-      });
-      // res.send({
-      //   message: "ok"
-      // });
-    });
-  });
-});
+  let id = req.params.id;
 
-app.post('/upload/:id', (req, res) => {
-  let id = req.params.id
-
-  // Stocker le fichier dans la base de données
+  // Formidable solution
   var form = new formidable.IncomingForm();
-  form.parse(req, function (err, fields, files) {
-    var oldpath = files.image.path;
+  form.multiples = true;
 
-    var data = fs.readFileSync(oldpath);
-    var images = {};
-    images.file_data = Binary(data);
+  form.parse(req, function (err, fields, files) {
+    var images = [];
+    var reclamation = JSON.parse(fields.details);
+
+    // Ajouter les images à la réclamation à créer
+    reclamation.images=[];
+    for(var i = 0; i < files['images[]'].length; i++) {
+      var oldpath = files['images[]'][i].path;
+      var data = fs.readFileSync(oldpath);
+      var images = {};
+      reclamation.images.push(Binary(data));
+    }
+
 
     connection(db => {
       db.collection('Users').updateOne({
         _id: ObjectID(id)
       }, {
-        $addToSet: images
+        $addToSet: {reclamation : reclamation}
       }, (err, result) => {
         if (err) {
           console.log(err);
@@ -148,6 +135,5 @@ app.get('/reclam/:id', (req, res) => {
     })
   });
 });
-
 
 app.listen(3000)

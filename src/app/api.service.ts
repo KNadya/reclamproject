@@ -23,12 +23,12 @@ export class ApiService {
     return Id;
   }
 
-  SendReclamation(reclam) {
-    return this.http.post('http://localhost:3000/reclam/' + this.GetUserId(), reclam);
+  SendReclamation(reclamForm) {
+    return this.http.post('http://localhost:3000/reclam/' + this.GetUserId(), reclamForm);
   }
 
-  Upload(uploadFileForm) {
-    return this.http.post('http://localhost:3000/upload/' + this.GetUserId(), uploadFileForm);
+  ListUserReclamations() {
+    return this.http.get('http://localhost:3000/reclam/' + this.GetUserId());
   }
 
 }

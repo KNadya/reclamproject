@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-listuserreclam',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListuserreclamComponent implements OnInit {
 
-  constructor() { }
+  reclamations;
+
+  constructor(private apiservice: ApiService) { }
 
   ngOnInit() {
+    this.apiservice.ListUserReclamations().subscribe(res => {
+      this.reclamations = res.json();
+    });
   }
 
 }
