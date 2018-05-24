@@ -22,7 +22,6 @@ export class UserhomeComponent implements OnInit {
   constructor(private apiservice: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // Récupérer
     this.getReclamationDetails();
   }
 
@@ -31,10 +30,13 @@ export class UserhomeComponent implements OnInit {
     if (reclamIndex !== '-1') {
       // Récupérer le détail de la réclamation
       this.apiservice.GetReclamation(reclamIndex).subscribe(res => {
-        // TODO : gérer correctement la réponse serveur
-        // Afficher une erreur ou un message de succès
-        console.log(res.json());
-        // this.router.navigate(['/list']);
+        // TODO : gérer correctement la réponse serveur : Afficher une erreur ou un message de succès
+        const details = res.json();
+        this.location = details.location;
+        this.date = details.date;
+        this.description = details.description;
+
+        // Afficher les images
       });
     }
   }

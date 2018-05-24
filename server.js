@@ -146,13 +146,16 @@ app.get('/reclam/:id/:index', (req, res) => {
   let index = req.params.index;
 
   //faire une recherche sur la db par Id pour retourner un TB des reclamation de cet user
-  let reclamationFilter = 'reclamation.' + index;
+  let reclamationFilter = {};
+  reclamationFilter._id = ObjectID(id);
+  reclamationFilter['reclamation.' + index] = {$exists: true}
+
   connection(db => {
-    db.collection('Users').find({_id: ObjectID(id), reclamationFilter : {$exists: true}})
-    .project({ reclamation : {$slice : [index , 1]}, _id: 0}).toArray((err, result) => {
+    db.collection('Users').find(reclamationFilter)
+    .project({ reclamation : {$slice : [parseInt(index), 1]}, _id: 0}).toArray((err, result) => {
       if (result) {
         // Remonter la liste des réclamations
-        res.send(result[0].reclamation);
+        res.send(result[0].reclamation[0]);
       } else {
         console.log(err);
         res.send({
