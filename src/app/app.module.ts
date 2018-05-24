@@ -15,7 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UserhomeComponent } from './userhome/userhome.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListuserreclamComponent } from './listuserreclam/listuserreclam.component';
 import { FileSizeFilterPipe } from './pipes/file-size-filter.pipe';
 
@@ -36,9 +36,7 @@ import { FileSizeFilterPipe } from './pipes/file-size-filter.pipe';
     HttpModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule,
-    NgbModule.forRoot()
-
+    HttpClientModule
   ],
   providers: [AppRoutingModule, RecguardGuard],
   bootstrap: [AppComponent]

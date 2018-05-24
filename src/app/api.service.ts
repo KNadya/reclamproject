@@ -31,4 +31,8 @@ export class ApiService {
     return this.http.get('http://localhost:3000/reclam/' + this.GetUserId());
   }
 
+  GetReclamation(index) {
+    return this.http.get('http://localhost:3000/reclam/' + this.GetUserId() + '/' + index);
+  }
+
 }

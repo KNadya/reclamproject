@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
       if (res.json().message === 'ok') {
         localStorage.setItem('tok', res.json().token);
-        this.router.navigateByUrl('userhome');
+        this.router.navigateByUrl('list');
       } else {
         this.erreur = res.json().message;
         console.log(this.erreur);

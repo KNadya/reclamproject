@@ -36,6 +36,7 @@ app.post('/login', (req, res) => {
       mail: req.body.mail
     }, (err, result) => {
       if (result) {
+        console.log(result._id);
         if (result.password == req.body.password) {
           let userDetails = {_id: result._id}
           let token = jsonwebtoken.sign(userDetails, "mysecretcode")
@@ -123,6 +124,32 @@ app.get('/reclam/:id', (req, res) => {
   connection(db => {
     db.collection('Users').find({_id: ObjectID(id)})
     .project({reclamation: 1, _id: 0}).toArray((err, result) => {
+      if (result) {
+        // Remonter la liste des réclamations
+        res.send(result[0].reclamation);
+      } else {
+        console.log(err);
+        res.send({
+          message: err.errmsg
+        });
+      }
+    })
+  });
+});
+
+app.get('/reclam/:id/:index', (req, res) => {
+
+  // Récupérer l'id de l'utilisateur
+  let id = req.params.id;
+
+  // Récupérer l'index de la réclamation à afficher
+  let index = req.params.index;
+
+  //faire une recherche sur la db par Id pour retourner un TB des reclamation de cet user
+  let reclamationFilter = 'reclamation.' + index;
+  connection(db => {
+    db.collection('Users').find({_id: ObjectID(id), reclamationFilter : {$exists: true}})
+    .project({ reclamation : {$slice : [index , 1]}, _id: 0}).toArray((err, result) => {
       if (result) {
         // Remonter la liste des réclamations
         res.send(result[0].reclamation);

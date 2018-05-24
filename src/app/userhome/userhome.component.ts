@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { registerLocaleData } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 
@@ -19,17 +19,34 @@ export class UserhomeComponent implements OnInit {
   date;
   description;
 
-  constructor(private apiservice: ApiService, private router: Router) { }
+  constructor(private apiservice: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    // Récupérer
+    this.getReclamationDetails();
   }
+
+  getReclamationDetails() {
+    const reclamIndex = this.route.snapshot.paramMap.get('index');
+    if (reclamIndex !== '-1') {
+      // Récupérer le détail de la réclamation
+      this.apiservice.GetReclamation(reclamIndex).subscribe(res => {
+        // TODO : gérer correctement la réponse serveur
+        // Afficher une erreur ou un message de succès
+        console.log(res.json());
+        // this.router.navigate(['/list']);
+      });
+    }
+  }
+
+
 
   // Créer la réclamation
   sendReclamation(reclamForm: NgForm) {
     const fd = new FormData();
 
     fd.append('details', JSON.stringify(reclamForm.value));
-    for (let img of this.selectedFiles) {
+    for (const img of this.selectedFiles) {
       fd.append('images[]', img, img.name);
     }
 
@@ -43,6 +60,10 @@ export class UserhomeComponent implements OnInit {
 
   onFileSelected(event) {
     this.selectedFiles.push(<File>event.target.files[0]);
+  }
+
+  cancel() {
+    this.router.navigateByUrl('list');
   }
 
 }

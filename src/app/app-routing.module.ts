@@ -13,7 +13,7 @@ const routes: Routes = [
     component: HomeComponent, canActivate: [RecguardGuard]
   },
    {
-    path: 'userhome',
+    path: 'userhome/:index',
     component: UserhomeComponent, canActivate: [RecguardGuard]
   },
 
@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: ListuserreclamComponent
+    component: ListuserreclamComponent, canActivate: [RecguardGuard]
   },
   {
     path: '**',

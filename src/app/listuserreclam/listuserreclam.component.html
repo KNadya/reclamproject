@@ -13,12 +13,13 @@
     <tbody>
     <tr *ngFor="let reclamation of reclamations; index as i">
       <th scope="row">{{i + 1}}</th>
-      <td>{{ reclamation.location }}</td>
+      <td><a routerLink='/userhome/{{i}}'>{{ reclamation.location }}</a></td>
       <td>{{ reclamation.date}}</td>
       <td>{{ reclamation.description}}</td>
     </tr>
     </tbody>
-
   </table>
+
+  <button mat-raised-button (click)="addReclamation()" color="primary">Créer une réclamation</button>
 
 </div>
